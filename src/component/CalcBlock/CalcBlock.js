@@ -1,17 +1,17 @@
+import React from 'react';
 import classes from './CalcBlock.module.css';
 
-import Result from './compCalc/Result';
-import Operation from './compCalc/Operation';
-import Num from './compCalc/Num';
-import Complete from './compCalc/Complete';
+// import Result from './compCalc/Result';
+// import Operation from './compCalc/Operation';
+// import Num from './compCalc/Num';
+// import Complete from './compCalc/Complete';
 
-const CalcBlock = () => {
+const CalcBlock = ({ componentCalc }) => {
   return (
     <div className={classes.CalcBlock}>
-      <Result />
-      <Operation />
-      <Num />
-      <Complete />
+      {componentCalc.map((e) => {
+        return <React.Fragment key={e.id}>{e.comp} </React.Fragment>;
+      })}
     </div>
   );
 };
