@@ -1,0 +1,31 @@
+.selectBlock {
+  margin: 5px;
+}
+.SelectElem {
+  margin-top: 108px;
+  height: 448px;
+  min-width: 180px;
+  max-width: 240px;
+  width: 100%;
+  margin: 0 auto;
+
+  border: 2px dashed #c4c4c4;
+  border-radius: 6px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.SelectElem h3 {
+  color: #5d5fef;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.SelectElem p {
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 400;
+}
