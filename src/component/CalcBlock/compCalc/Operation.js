@@ -1,8 +1,9 @@
 import classes from './compCalc.module.css';
 
 const Operation = () => {
+  const cls = [classes.Operation];
   return (
-    <div className={classes.Operation}>
+    <div className={cls.join(' ')}>
       <button>/</button>
       <button>X</button>
       <button>-</button>

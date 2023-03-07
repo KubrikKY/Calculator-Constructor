@@ -6,4 +6,9 @@
   margin: 0 auto;
   flex-wrap: wrap;
   padding: 10px;
+  justify-content: end;
+}
+
+.shadowElem {
+  opacity: 0.7;
 }

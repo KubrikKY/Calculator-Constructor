@@ -1,0 +1,9 @@
+.BlockConstructor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 508px;
+  width: 100%;
+  margin: auto auto 0;
+}
