@@ -1,7 +1,8 @@
 import classes from './SelectElem.module.css';
+import React from 'react';
 
-const SelectElem = ({ selectElem }) => {
-  const cls = [classes.SelectElem];
+const SelectElem = (props) => {
+  const cls = [classes.SelectElem, 'SelectDiv'];
 
   const noElem = (
     <>
@@ -11,11 +12,22 @@ const SelectElem = ({ selectElem }) => {
     </>
   );
 
+  if (props.selectElem.length) {
+    cls.push(classes.WithElem);
+  }
+
   return (
-    <div className={cls.join(' ')}>
-      {selectElem.length
-        ? selectElem.map((e) => {
-            return e;
+    <div
+      className={cls.join(' ')}
+      onDragOver={props.onDragOver}
+      onDrop={props.onDrop}
+      onDragLeave={props.onDragLeave}
+    >
+      {props.selectElem.length
+        ? props.selectElem.map((e) => {
+            return (
+              <React.Fragment key={e}>{props.elements[e].comp}</React.Fragment>
+            );
           })
         : noElem}
     </div>

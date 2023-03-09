@@ -1,8 +1,6 @@
 import './App.css';
 import CalcBlock from './component/CalcBlock/CalcBlock';
-import SelectElem from './component/SelectElem/SelectElem';
 import BlockConstructor from './hoc/BlockConstructor/BlockConstructor';
-import Selector from './component/Selector/Selector';
 import { useState } from 'react';
 
 import Result from './component/CalcBlock/compCalc/Result';
@@ -11,30 +9,82 @@ import Num from './component/CalcBlock/compCalc/Num';
 import Complete from './component/CalcBlock/compCalc/Complete';
 
 function App() {
-  const [state, setState] = useState({
+  const dragHandlers = {
+    onDragOver: (e) => {
+      dragOverHandler(e);
+    },
+    onDragLeave: (e) => {
+      dragLeaveHandler(e);
+    },
+    onDragStart: (e, id) => {
+      dragStartHandler(e, id);
+    },
+    onDragEnd: (e) => {
+      dragEndHandler(e);
+    },
+    onDrop: (e) => {
+      dropHandler(e);
+    },
+    draggable: true,
+  };
+
+  const [state, setCalc] = useState({
     toggleRunTime: false,
     mathResult: null,
-    selectList: [],
+    selectItem: null,
     componentCalc: [
-      { id: 0, comp: <Result /> },
-      { id: 1, comp: <Operation /> },
-      { id: 2, comp: <Num /> },
-      { id: 3, comp: <Complete /> },
+      { id: 0, comp: <Result {...dragHandlers} id={0} /> },
+      { id: 1, comp: <Operation {...dragHandlers} id={1} /> },
+      { id: 2, comp: <Num {...dragHandlers} id={2} /> },
+      { id: 3, comp: <Complete {...dragHandlers} id={3} /> },
     ],
   });
 
-  const addElemHandler = (elem) => {
-    setState({ ...state, selectList: [...state.selectList, elem] });
+  const [selectList, setSelectList] = useState([]);
+
+  const dragOverHandler = (e) => {
+    e.preventDefault();
+    if (e.target.classList.contains('SelectDiv')) {
+      e.target.style.background = '#F0F9FF';
+    }
+  };
+
+  const dragLeaveHandler = (e) => {
+    e.target.style.background = '#fff';
+  };
+
+  const dragStartHandler = (e, id) => {
+    if (e.target.draggable) {
+      setCalc({ ...state, selectItem: id });
+    }
+  };
+
+  const dragEndHandler = (e) => {
+    const container = e.target;
+    if (container.draggable) {
+      setCalc({ ...state, selectItem: null });
+    }
+  };
+
+  const dropHandler = (e) => {
+    e.preventDefault();
+    const idElem = state.selectItem;
+    if (!selectList.includes(idElem)) {
+      const newSelectList = [...selectList];
+      !idElem ? newSelectList.unshift(idElem) : newSelectList.push(idElem);
+      setSelectList([...newSelectList]);
+    }
   };
 
   return (
     <div className="App">
-      <CalcBlock addElem={addElemHandler} componentCalc={state.componentCalc} />
-      <BlockConstructor>
-        <Selector />
-
-        <SelectElem selectElem={state.selectList} />
-      </BlockConstructor>
+      <CalcBlock componentCalc={state.componentCalc} />
+      <BlockConstructor
+        selectList={selectList}
+        toggleRunTime={state.toggleRunTime}
+        DnD={dragHandlers}
+        elements={state.componentCalc}
+      />
     </div>
   );
 }

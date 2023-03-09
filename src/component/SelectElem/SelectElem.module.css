@@ -14,6 +14,16 @@
   align-items: center;
 }
 
+.WithElem {
+  border: none !important;
+  background: #fff !important;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .SelectElem h3 {
   color: #5d5fef;
   font-size: 14px;

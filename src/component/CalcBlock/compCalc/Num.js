@@ -1,9 +1,14 @@
 import classes from './compCalc.module.css';
 
-const Num = () => {
+const Num = (props) => {
   const cls = [classes.Num];
   return (
-    <div className={cls.join(' ')}>
+    <div
+      className={cls.join(' ')}
+      draggable={props.draggable}
+      onDragStart={(e) => props.onDragStart(e, props.id)}
+      onDragEnd={props.onDragEnd}
+    >
       <button>1</button>
       <button>2</button>
       <button>3</button>
