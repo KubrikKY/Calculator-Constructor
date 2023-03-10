@@ -76,6 +76,10 @@ function App() {
     }
   };
 
+  const selectRunTimeHandler = (e) => {
+    setCalc({ ...state, toggleRunTime: e.target.checked });
+  };
+
   return (
     <div className="App">
       <CalcBlock componentCalc={state.componentCalc} />
@@ -84,6 +88,7 @@ function App() {
         toggleRunTime={state.toggleRunTime}
         DnD={dragHandlers}
         elements={state.componentCalc}
+        selectRunTime={selectRunTimeHandler}
       />
     </div>
   );

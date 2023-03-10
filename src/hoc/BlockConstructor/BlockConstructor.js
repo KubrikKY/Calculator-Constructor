@@ -5,7 +5,10 @@ import SelectElem from '../../component/SelectElem/SelectElem';
 const BlockConstructor = (props) => {
   return (
     <div className={classes.BlockConstructor}>
-      <Selector />
+      <Selector
+        selectRunTime={props.selectRunTime}
+        toggleRunTime={props.toggleRunTime}
+      />
 
       <SelectElem
         selectElem={props.selectList}
