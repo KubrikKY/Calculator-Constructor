@@ -29,34 +29,32 @@ function App() {
   };
 
   const [selectList, setSelectList] = useState([]);
+  const [disabledList, setDisabledList] = useState(false);
 
   const [state, setCalc] = useState({
     toggleRunTime: false,
     mathResult: null,
     selectItem: null,
-    componentCalc: [
-      {
-        id: 0,
-        disabled: true,
-        comp: <Result {...dragHandlers} id={0} />,
-      },
-      {
-        id: 1,
-        disabled: true,
-        comp: <Operation {...dragHandlers} id={1} />,
-      },
-      {
-        id: 2,
-        disabled: true,
-        comp: <Num {...dragHandlers} id={2} />,
-      },
-      {
-        id: 3,
-        disabled: true,
-        comp: <Complete {...dragHandlers} id={3} />,
-      },
-    ],
   });
+
+  const componentCalc = [
+    {
+      id: 0,
+      comp: <Result {...dragHandlers} disabled={disabledList} />,
+    },
+    {
+      id: 1,
+      comp: <Operation {...dragHandlers} disabled={disabledList} />,
+    },
+    {
+      id: 2,
+      comp: <Num {...dragHandlers} disabled={disabledList} />,
+    },
+    {
+      id: 3,
+      comp: <Complete {...dragHandlers} disabled={disabledList} />,
+    },
+  ];
 
   const dragOverHandler = (e) => {
     e.preventDefault();
@@ -93,6 +91,7 @@ function App() {
   };
 
   const selectRunTimeHandler = (e) => {
+    setDisabledList(e.target.checked);
     setCalc({ ...state, toggleRunTime: e.target.checked });
   };
 
@@ -100,13 +99,14 @@ function App() {
     <div className="App">
       <CalcBlock
         dragHandlers={dragHandlers}
-        componentCalc={state.componentCalc}
+        componentCalc={componentCalc}
+        selectList={selectList}
       />
       <BlockConstructor
         selectList={selectList}
         toggleRunTime={state.toggleRunTime}
         DnD={dragHandlers}
-        elements={state.componentCalc}
+        elements={componentCalc}
         selectRunTime={selectRunTimeHandler}
       />
     </div>
