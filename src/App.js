@@ -28,19 +28,35 @@ function App() {
     draggable: true,
   };
 
+  const [selectList, setSelectList] = useState([]);
+
   const [state, setCalc] = useState({
     toggleRunTime: false,
     mathResult: null,
     selectItem: null,
     componentCalc: [
-      { id: 0, comp: <Result {...dragHandlers} id={0} /> },
-      { id: 1, comp: <Operation {...dragHandlers} id={1} /> },
-      { id: 2, comp: <Num {...dragHandlers} id={2} /> },
-      { id: 3, comp: <Complete {...dragHandlers} id={3} /> },
+      {
+        id: 0,
+        disabled: true,
+        comp: <Result {...dragHandlers} id={0} />,
+      },
+      {
+        id: 1,
+        disabled: true,
+        comp: <Operation {...dragHandlers} id={1} />,
+      },
+      {
+        id: 2,
+        disabled: true,
+        comp: <Num {...dragHandlers} id={2} />,
+      },
+      {
+        id: 3,
+        disabled: true,
+        comp: <Complete {...dragHandlers} id={3} />,
+      },
     ],
   });
-
-  const [selectList, setSelectList] = useState([]);
 
   const dragOverHandler = (e) => {
     e.preventDefault();

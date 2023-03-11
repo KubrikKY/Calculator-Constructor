@@ -1,7 +1,14 @@
+.CheckBoxContainer {
+  min-width: 180px;
+  max-width: 240px;
+  width: 100%;
+  height: 38px;
+}
+
 .switch {
   position: relative;
   display: inline-block;
-  width: 243px;
+  width: 100%;
   height: 38px;
 }
 
@@ -32,7 +39,7 @@
   position: absolute;
   content: '';
   height: 36px;
-  width: 133px;
+  width: 50%;
   border: 1px solid #e2e3e5;
   background-color: white;
   /* opacity: 0.3; */
@@ -40,18 +47,10 @@
   transition: 0.4s;
 }
 
-input:checked + .slider {
-  background-color: #2196f3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
-}
-
 input:checked + .slider:before {
-  -webkit-transform: translateX(82.5%);
-  -ms-transform: translateX(82.5%);
-  transform: translateX(82.5%);
+  -webkit-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  transform: translateX(100%);
 }
 
 .slider.round {
@@ -67,10 +66,24 @@ input:checked + .slider:before {
   padding: 12px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   font-weight: 500;
   font-size: 14px;
   line-height: 15px;
   z-index: 1000;
   color: #4d5562;
+}
+
+@media screen and (max-width: 470px) {
+  .Selector {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .Selector img {
+    margin-right: 0;
+  }
+}
+
+.Selector img {
+  margin-right: 12px;
 }

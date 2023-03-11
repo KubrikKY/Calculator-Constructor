@@ -4,7 +4,7 @@ const Selector = (props) => {
   const cls = [classes.slider, classes.round];
 
   return (
-    <div>
+    <div className={classes.CheckBoxContainer}>
       <label className={classes.switch}>
         <input
           type="checkbox"
