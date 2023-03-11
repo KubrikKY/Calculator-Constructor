@@ -9,10 +9,10 @@ const Operation = (props) => {
       onDragStart={(e) => props.onDragStart(e, props.id)}
       onDragEnd={props.onDragEnd}
     >
-      <button>/</button>
-      <button>X</button>
-      <button>-</button>
-      <button>+</button>
+      <button disabled={props.disabled}>/</button>
+      <button disabled={props.disabled}>X</button>
+      <button disabled={props.disabled}>-</button>
+      <button disabled={props.disabled}>+</button>
     </div>
   );
 };

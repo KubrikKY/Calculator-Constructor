@@ -11,7 +11,11 @@ const Num = (props) => {
       onDragEnd={props.onDragEnd}
     >
       {operand.map((e, i) => {
-        return <button key={i}>{e}</button>;
+        return (
+          <button key={i} disabled={props.disabled}>
+            {e}
+          </button>
+        );
       })}
     </div>
   );

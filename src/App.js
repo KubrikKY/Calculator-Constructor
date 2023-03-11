@@ -98,7 +98,10 @@ function App() {
 
   return (
     <div className="App">
-      <CalcBlock componentCalc={state.componentCalc} />
+      <CalcBlock
+        dragHandlers={dragHandlers}
+        componentCalc={state.componentCalc}
+      />
       <BlockConstructor
         selectList={selectList}
         toggleRunTime={state.toggleRunTime}

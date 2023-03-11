@@ -1,17 +1,26 @@
 import React from 'react';
 import classes from './CalcBlock.module.css';
 
-// import Result from './compCalc/Result';
-// import Operation from './compCalc/Operation';
-// import Num from './compCalc/Num';
-// import Complete from './compCalc/Complete';
+import Result from './compCalc/Result';
+import Operation from './compCalc/Operation';
+import Num from './compCalc/Num';
+import Complete from './compCalc/Complete';
 
-const CalcBlock = ({ componentCalc }) => {
+const CalcBlock = (props) => {
   return (
     <div className={classes.CalcBlock}>
-      {componentCalc.map((e) => {
-        return <React.Fragment key={e.id}>{e.comp} </React.Fragment>;
-      })}
+      <Result {...props.dragHandlers} id={props.componentCalc[0].id} disabled />
+      <Operation
+        {...props.dragHandlers}
+        id={props.componentCalc[1].id}
+        disabled
+      />
+      <Num {...props.dragHandlers} id={props.componentCalc[2].id} disabled />
+      <Complete
+        {...props.dragHandlers}
+        id={props.componentCalc[3].id}
+        disabled
+      />
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import classes from './compCalc.module.css';
 
 const Result = (props) => {
-  console.log(props);
   const cls = [classes.Result];
   return (
     <div
