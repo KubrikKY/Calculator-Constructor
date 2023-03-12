@@ -8,7 +8,9 @@ const Complete = (props) => {
       draggable={props.draggable}
       onDragStart={(e) => props.onDragStart(e, props.id)}
     >
-      <button disabled={props.disabled}>=</button>
+      <button disabled={props.disabled} onClick={props.onResult}>
+        =
+      </button>
     </div>
   );
 };

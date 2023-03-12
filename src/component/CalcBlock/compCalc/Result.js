@@ -8,7 +8,12 @@ const Result = (props) => {
       draggable={props.draggable}
       onDragStart={(e) => props.onDragStart(e, props.id)}
     >
-      <input type="number" disabled={props.disabled}></input>
+      <input
+        type="text"
+        disabled={props.disabled}
+        value={props.selectOperand || props.mathResult}
+        readOnly
+      ></input>
     </div>
   );
 };

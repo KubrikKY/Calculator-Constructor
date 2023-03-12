@@ -12,7 +12,12 @@ const Num = (props) => {
     >
       {operand.map((e, i) => {
         return (
-          <button key={i} disabled={props.disabled}>
+          <button
+            key={i}
+            disabled={props.disabled}
+            value={e === ',' ? '.' : e}
+            onClick={(e) => props.onValue(e.target.value)}
+          >
             {e}
           </button>
         );

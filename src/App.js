@@ -9,7 +9,24 @@ import Num from './component/CalcBlock/compCalc/Num';
 import Complete from './component/CalcBlock/compCalc/Complete';
 
 function App() {
-  const dragHandlers = {
+  const [selectList, setSelectList] = useState([]);
+  const [disabledList, setDisabledList] = useState(false);
+
+  const [state, setCalc] = useState({
+    toggleRunTime: false,
+    mathResult: '',
+    selectOperand: '',
+    mathOperation: {
+      a: '',
+      b: '',
+      operation: '',
+    },
+    selectItem: null,
+  });
+
+  console.log(state);
+
+  const dragHandlers = state.toggleRunTime && {
     onDragOver: (e) => {
       dragOverHandler(e);
     },
@@ -28,31 +45,138 @@ function App() {
     draggable: true,
   };
 
-  const [selectList, setSelectList] = useState([]);
-  const [disabledList, setDisabledList] = useState(false);
+  const mathCalcHandlers = !state.toggleRunTime && {
+    onValue: (value) => {
+      setValueHandler(value);
+    },
+    onOperation: (oper) => {
+      setOperationHandler(oper);
+    },
+    onResult: () => {
+      getResultHandler();
+    },
+  };
 
-  const [state, setCalc] = useState({
-    toggleRunTime: false,
-    mathResult: null,
-    selectItem: null,
-  });
+  const setValueHandler = (value) => {
+    console.log(value);
+    const { a, b, operation } = state.mathOperation;
+
+    if (!operation) {
+      setCalc({
+        ...state,
+        mathOperation: {
+          ...state.mathOperation,
+          a: +a === state.mathResult ? value : a + value,
+        },
+        selectOperand: value,
+      });
+    }
+
+    if (a && operation) {
+      setCalc({
+        ...state,
+        mathOperation: { ...state.mathOperation, b: b + value },
+        selectOperand: b + value,
+      });
+    }
+  };
+
+  const setOperationHandler = (oper) => {
+    const { a } = state.mathOperation;
+    if (a) {
+      setCalc({
+        ...state,
+        mathOperation: { ...state.mathOperation, operation: oper },
+      });
+    }
+  };
+
+  const getResultHandler = () => {
+    const { a, b, operation } = state.mathOperation;
+
+    if (a && b && operation) {
+      switch (operation) {
+        case '/':
+          setCalc({
+            ...state,
+            mathResult: a / b,
+            selectOperand: '',
+            mathOperation: { a: a / b, b: '', operation: '' },
+          });
+          break;
+        case 'X':
+          setCalc({
+            ...state,
+            mathResult: a * b,
+            selectOperand: '',
+            mathOperation: { a: a * b, b: '', operation: '' },
+          });
+          break;
+        case '-':
+          setCalc({
+            ...state,
+            mathResult: a - b,
+            selectOperand: '',
+            mathOperation: { a: a - b, b: '', operation: '' },
+          });
+          break;
+        case '+':
+          setCalc({
+            ...state,
+            mathResult: +a + +b,
+            selectOperand: '',
+            mathOperation: { a: +a + +b, b: '', operation: '' },
+          });
+          break;
+        default:
+          setCalc({
+            ...state,
+            mathResult: a,
+            selectOperand: '',
+            mathOperation: { a: a, b: '', operation: '' },
+          });
+      }
+    }
+  };
 
   const componentCalc = [
     {
       id: 0,
-      comp: <Result {...dragHandlers} disabled={disabledList} />,
+      comp: (
+        <Result
+          {...dragHandlers}
+          disabled={disabledList}
+          {...mathCalcHandlers}
+          selectOperand={state.selectOperand}
+          mathResult={state.mathResult}
+        />
+      ),
     },
     {
       id: 1,
-      comp: <Operation {...dragHandlers} disabled={disabledList} />,
+      comp: (
+        <Operation
+          {...dragHandlers}
+          disabled={disabledList}
+          {...mathCalcHandlers}
+        />
+      ),
     },
     {
       id: 2,
-      comp: <Num {...dragHandlers} disabled={disabledList} />,
+      comp: (
+        <Num {...dragHandlers} disabled={disabledList} {...mathCalcHandlers} />
+      ),
     },
     {
       id: 3,
-      comp: <Complete {...dragHandlers} disabled={disabledList} />,
+      comp: (
+        <Complete
+          {...dragHandlers}
+          disabled={disabledList}
+          {...mathCalcHandlers}
+        />
+      ),
     },
   ];
 

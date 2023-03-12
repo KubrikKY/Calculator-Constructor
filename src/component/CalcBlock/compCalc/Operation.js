@@ -2,6 +2,7 @@ import classes from './compCalc.module.css';
 
 const Operation = (props) => {
   const cls = [classes.Operation];
+  const operation = ['/', 'X', '-', '+'];
   return (
     <div
       className={cls.join(' ')}
@@ -9,10 +10,18 @@ const Operation = (props) => {
       onDragStart={(e) => props.onDragStart(e, props.id)}
       onDragEnd={props.onDragEnd}
     >
-      <button disabled={props.disabled}>/</button>
-      <button disabled={props.disabled}>X</button>
-      <button disabled={props.disabled}>-</button>
-      <button disabled={props.disabled}>+</button>
+      {operation.map((e, i) => {
+        return (
+          <button
+            disabled={props.disabled}
+            value={e}
+            onClick={(e) => props.onOperation(e.target.value)}
+            key={i}
+          >
+            {e}
+          </button>
+        );
+      })}
     </div>
   );
 };
