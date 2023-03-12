@@ -1,7 +1,10 @@
 import classes from './compCalc.module.css';
 
 const Operation = (props) => {
-  const cls = [classes.Operation];
+  const cls = [classes.Operation, 'SelectElem'];
+  if (!props.disabled) {
+    cls.push(classes.activeElem);
+  }
   const operation = ['/', 'X', '-', '+'];
   return (
     <div

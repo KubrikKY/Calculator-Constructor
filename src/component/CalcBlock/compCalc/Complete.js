@@ -1,7 +1,7 @@
 import classes from './compCalc.module.css';
 
 const Complete = (props) => {
-  const cls = [classes.Complete];
+  const cls = [classes.Complete, 'SelectElem'];
   return (
     <div
       className={cls.join(' ')}

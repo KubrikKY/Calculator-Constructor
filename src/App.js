@@ -58,21 +58,20 @@ function App() {
   };
 
   const setValueHandler = (value) => {
-    console.log(value);
     const { a, b, operation } = state.mathOperation;
 
-    if (!operation) {
+    if (!operation && String(a).length < 18) {
       setCalc({
         ...state,
         mathOperation: {
           ...state.mathOperation,
           a: +a === state.mathResult ? value : a + value,
         },
-        selectOperand: value,
+        selectOperand: +a === state.mathResult ? value : a + value,
       });
     }
 
-    if (a && operation) {
+    if (a && operation && String(b).length < 18) {
       setCalc({
         ...state,
         mathOperation: { ...state.mathOperation, b: b + value },
@@ -93,39 +92,54 @@ function App() {
 
   const getResultHandler = () => {
     const { a, b, operation } = state.mathOperation;
+    let result;
 
     if (a && b && operation) {
       switch (operation) {
         case '/':
+          if (b === '0') {
+            setCalc({
+              ...state,
+              mathResult: 'Не определено',
+              selectOperand: '',
+              mathOperation: { a: '', b: '', operation: '' },
+            });
+            break;
+          }
+          result = String(a / b).length < 18 ? a / b : (a / b).toFixed(15);
           setCalc({
             ...state,
-            mathResult: a / b,
+            mathResult: result,
             selectOperand: '',
-            mathOperation: { a: a / b, b: '', operation: '' },
+            mathOperation: { a: result, b: '', operation: '' },
           });
           break;
         case 'X':
+          result = String(a * b).length < 18 ? a * b : (a * b).toFixed(15);
           setCalc({
             ...state,
-            mathResult: a * b,
+            mathResult: result,
             selectOperand: '',
-            mathOperation: { a: a * b, b: '', operation: '' },
+            mathOperation: { a: result, b: '', operation: '' },
           });
           break;
         case '-':
+          result = String(a - b).length < 18 ? a - b : (a - b).toFixed(15);
           setCalc({
             ...state,
-            mathResult: a - b,
+            mathResult: result,
             selectOperand: '',
-            mathOperation: { a: a - b, b: '', operation: '' },
+            mathOperation: { a: result, b: '', operation: '' },
           });
           break;
         case '+':
+          result =
+            String(+a + +b).length < 18 ? +a + +b : (+a + +b).toFixed(15);
           setCalc({
             ...state,
-            mathResult: +a + +b,
+            mathResult: result,
             selectOperand: '',
-            mathOperation: { a: +a + +b, b: '', operation: '' },
+            mathOperation: { a: result, b: '', operation: '' },
           });
           break;
         default:
@@ -182,13 +196,30 @@ function App() {
 
   const dragOverHandler = (e) => {
     e.preventDefault();
+
     if (e.target.classList.contains('SelectDiv')) {
       e.target.style.background = '#F0F9FF';
+      return;
+    }
+    if (
+      e.target.closest('.SelectDiv') &&
+      e.target.classList.contains('SelectElem')
+    ) {
+      e.target.style.borderBottom = '1px solid #5D5FEF';
     }
   };
 
   const dragLeaveHandler = (e) => {
-    e.target.style.background = '#fff';
+    if (e.target.classList.contains('SelectDiv')) {
+      e.target.style.background = '#fff';
+      return;
+    }
+    if (
+      e.target.closest('.SelectDiv') &&
+      e.target.classList.contains('SelectElem')
+    ) {
+      e.target.style.borderBottom = 'none';
+    }
   };
 
   const dragStartHandler = (e, id) => {

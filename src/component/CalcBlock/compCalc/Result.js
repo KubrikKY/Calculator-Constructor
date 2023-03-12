@@ -1,7 +1,7 @@
 import classes from './compCalc.module.css';
 
 const Result = (props) => {
-  const cls = [classes.Result];
+  const cls = [classes.Result, 'SelectElem'];
   return (
     <div
       className={cls.join(' ')}
@@ -11,7 +11,7 @@ const Result = (props) => {
       <input
         type="text"
         disabled={props.disabled}
-        value={props.selectOperand || props.mathResult}
+        value={props.selectOperand || props.mathResult || '0'}
         readOnly
       ></input>
     </div>
